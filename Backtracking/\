@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void gen(int, int, int, vector<int> &, bool, int);
+
+int main() {
+  int k, n;
+  cin >> k >> n;
+
+  vector<int> ans;
+  gen(0, k, n, ans, true, n);
+}
+
+void gen(int i, int k, int n, vector<int> &ans, bool isFirst, int prevNum) {
+  if (i == k) {
+    for (int x = 0; x < n; x++)
+      cout << ans[x];
+    cout << endl;
+    return;
+  }
+
+  if (isFirst) {
+    for (int j = k; j <= n; j++) {
+      ans.push_back(j);
+      gen(i + 1, k, n, ans, false, j);
+      ans.pop_back();
+    }
+  } else {
+    for (int j = 1; j < prevNum; j++) {
+      ans.push_back(j);
+      gen(i + 1, k, n, ans, false, j);
+      ans.pop_back();
+    }
+  }
+  return;
+}
